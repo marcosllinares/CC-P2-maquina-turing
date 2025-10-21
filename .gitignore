@@ -1,0 +1,28 @@
+# Build artifacts
+/build/
+/bin/
+/CMakeFiles/
+/CMakeCache.txt
+/*.cmake
+/*.o
+/*.obj
+/*.a
+/*.lib
+/*.so
+/*.dll
+/*.dylib
+/*.exe
+/compile_commands.json
+
+# Dependency files
+*.d
+
+# Editors/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
