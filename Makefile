@@ -10,7 +10,7 @@ BUILD_DIR = build
 BIN_DIR = bin
 
 # Target executable
-TARGET = $(BIN_DIR)/pda
+TARGET = $(BIN_DIR)/MT
 
 # Source files
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
@@ -55,26 +55,23 @@ rebuild: clean all
 
 # Run the program with example data
 run: $(TARGET)
-	@echo "Running PDA simulator..."
-	@echo "Usage: ./$(TARGET) <definition_file> [--trace] [--mode=APv|APf]"
-	@echo "Example files available in data/ directory"
+	@echo "Running Turing Machine simulator..."
+	@echo "Usage: ./$(TARGET) <definition_file> <input_file>"
+	@echo "Example: ./$(TARGET) data/Definitions/Ejemplo_MT.txt data/Inputs/input1.txt"
 
 # Test with example files
-test-apf: $(TARGET)
-	@echo "Testing with APf examples..."
-	@for file in data/APf/*.txt; do \
-		echo "Testing $$file"; \
-		./$(TARGET) "$$file" --mode=APf; \
-	done
-
-test-apv: $(TARGET)
-	@echo "Testing with APv examples..."
-	@for file in data/APv/*.txt; do \
-		echo "Testing $$file"; \
-		./$(TARGET) "$$file" --mode=APv; \
-	done
-
-test: test-apf test-apv
+test: $(TARGET)
+	@echo "Testing Turing Machine simulator..."
+	@if [ -f data/Definitions/Ejemplo_MT.txt ] && [ -f data/Inputs/input1.txt ]; then \
+		echo "Testing Ejemplo_MT.txt with input1.txt"; \
+		./$(TARGET) data/Definitions/Ejemplo_MT.txt data/Inputs/input1.txt; \
+	else \
+		echo "Create test files in data/Definitions/ and data/Inputs/ first"; \
+	fi
+	@if [ -f data/Definitions/Ejemplo2_MT.txt ] && [ -f data/Inputs/input1.txt ]; then \
+		echo "Testing Ejemplo2_MT.txt with input1.txt"; \
+		./$(TARGET) data/Definitions/Ejemplo2_MT.txt data/Inputs/input1.txt; \
+	fi
 
 # Install (copy to system location)
 install: $(TARGET)
@@ -90,8 +87,6 @@ help:
 	@echo "  rebuild  - Clean and build"
 	@echo "  run      - Build and show usage information"
 	@echo "  test     - Run tests with example files"
-	@echo "  test-apf - Test with APf example files"
-	@echo "  test-apv - Test with APv example files"
 	@echo "  install  - Install to system"
 	@echo "  help     - Show this help"
 
@@ -99,4 +94,4 @@ help:
 -include $(DEPS)
 
 # Declare phony targets
-.PHONY: all debug clean rebuild run test test-apf test-apv install help
+.PHONY: all debug clean rebuild run test install help
