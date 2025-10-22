@@ -2,12 +2,29 @@
 
 #include <string>
 #include <vector>
+#include <deque>
 
-/**
- * @brief Representa una cinta individual de la Máquina de Turing
- * 
- * Cinta infinita en ambas direcciones con cabezal de lectura/escritura
- */
 class Tape {
-
+public:
+  Tape(char blank_symbol = '.');
+  Tape(const std::string& input, char blank_symbol = '.');
+  
+  char read() const;
+  void write(char symbol);
+  void moveLeft();
+  void moveRight();
+  void moveStay();
+  
+  int getHeadPosition() const;
+  std::string getContent() const;
+  std::string getContentWithHead() const;
+  void reset(const std::string& input);
+  
+private:
+  std::deque<char> tape_;
+  int head_position_;
+  char blank_symbol_;
+  
+  void expandLeft();
+  void expandRight();
 };
