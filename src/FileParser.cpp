@@ -2,6 +2,22 @@
 #include <algorithm>
 #include <cctype>
 
+/**
+ * @brief Parsea un archivo de definición de MT y retorna la máquina configurada
+ * @param filename Ruta al archivo de definición
+ * @return TuringMachine configurada según el archivo
+ * @throws std::runtime_error si el archivo no existe o el formato es inválido
+ * 
+ * Formato esperado (comentarios solo al inicio):
+ * 1. Conjunto Q (estados)
+ * 2. Conjunto Σ (alfabeto de entrada)
+ * 3. Conjunto Γ (alfabeto de cinta)
+ * 4. Estado inicial s
+ * 5. Símbolo blanco b
+ * 6. Conjunto F (estados finales)
+ * 7. Número de cintas (opcional, para MT multicinta)
+ * 8. Transiciones δ (una por línea)
+ */
 TuringMachine FileParser::parseMachineDefinition(const std::string& filename) {
   std::ifstream file(filename);
   if (!file.is_open()) {
@@ -101,6 +117,12 @@ TuringMachine FileParser::parseMachineDefinition(const std::string& filename) {
   }
 }
 
+/**
+ * @brief Lee cadenas de entrada desde un archivo (una por línea)
+ * @param filename Ruta al archivo de entrada
+ * @return Vector de cadenas de entrada
+ * @throws std::runtime_error si el archivo no existe
+ */
 std::vector<std::string> FileParser::parseInputStrings(const std::string& filename) {
   std::ifstream file(filename);
   if (!file.is_open()) {
@@ -119,6 +141,12 @@ std::vector<std::string> FileParser::parseInputStrings(const std::string& filena
   return input_strings;
 }
 
+/**
+ * @brief Lee la siguiente línea no vacía y no comentario del archivo
+ * @param file Stream del archivo
+ * @return Línea leída (sin espacios al inicio/final)
+ * @throws std::runtime_error si llega al final del archivo
+ */
 std::string FileParser::readNextLine(std::ifstream& file) {
   std::string line;
   while (std::getline(file, line)) {
@@ -131,6 +159,11 @@ std::string FileParser::readNextLine(std::ifstream& file) {
   throw std::runtime_error("Fin de archivo inesperado");
 }
 
+/**
+ * @brief Divide una línea en tokens separados por espacios
+ * @param line Línea a dividir
+ * @return Vector de tokens
+ */
 std::vector<std::string> FileParser::tokenize(const std::string& line) {
   std::vector<std::string> tokens;
   std::istringstream iss(line);
@@ -143,6 +176,11 @@ std::vector<std::string> FileParser::tokenize(const std::string& line) {
   return tokens;
 }
 
+/**
+ * @brief Elimina espacios en blanco al inicio y final de una cadena
+ * @param str Cadena a procesar
+ * @return Cadena sin espacios al inicio/final
+ */
 std::string FileParser::trim(const std::string& str) {
   if (str.empty()) return str;
   
@@ -161,6 +199,11 @@ std::string FileParser::trim(const std::string& str) {
   return str.substr(start, end - start);
 }
 
+/**
+ * @brief Verifica si una línea es un comentario o está vacía
+ * @param line Línea a verificar
+ * @return true si es comentario o vacía, false en caso contrario
+ */
 bool FileParser::isCommentOrEmpty(const std::string& line) {
   return line.empty() || line[0] == '#';
 }
