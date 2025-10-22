@@ -26,6 +26,8 @@ Trabajo realizado por Marcos Llinares Montes (alu0100972443)
 │   │   ├── Ejemplo_MT.txt
 │   │   └── Ejemplo2_MT.txt
 │   └── Inputs/
+│   │   ├── input1.txt
+│   │   └── input2.txt
 ├── include/
 │   ├── Alphabet.hpp
 │   ├── FileParser.hpp
