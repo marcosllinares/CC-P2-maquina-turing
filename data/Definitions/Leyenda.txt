@@ -1,0 +1,11 @@
+# Comentarios al inicio
+q0 q1 q2          # Q
+a b               # Σ
+a b X Y           # Γ
+q0                # s
+·                 # b
+q2                # F
+2                 # num_cintas (opcional)
+q0 a q1 X R       # transiciones
+q1 b q2 Y L
+...
