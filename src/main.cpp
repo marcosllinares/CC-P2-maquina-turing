@@ -1,5 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include "../include/FileParser.hpp"
+#include "../include/TuringMachine.hpp"
 
 /**
  * @brief Metodo que muestra el uso correcto del programa
@@ -23,7 +26,16 @@ int main(int argc, char **argv) {
   std::string definition_file = argv[1];
   std::string input_file = argv[2];
 
-  // TODO: Implementar lógica del simulador
+  try {
+    TuringMachine tm = FileParser::parseMachineDefinition(definition_file);
+    std::vector<std::string> input_strings = FileParser::parseInputStrings(input_file);
+
+    // TODO: Ejecutar la MT con cada cadena de entrada
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
 
   return 0;
 }
