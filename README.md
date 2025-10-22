@@ -69,36 +69,6 @@ Ejemplo:
 ./bin/MT data/Definitions/Ejemplo_MT.txt data/Inputs/input1.txt
 ```
 
-## Formato del archivo de definición
-
-```
-# Conjunto Q (estados)
-q1 q2 q3 ...
-
-# Conjunto Σ (alfabeto de entrada)
-a b c ...
-
-# Conjunto Γ (alfabeto de cinta)
-a b c X Y ...
-
-# Estado inicial
-q0
-
-# Símbolo blanco
-·
-
-# Conjunto F (estados finales)
-qf1 qf2 ...
-
-# Número de cintas (solo para MT multicinta)
-2
-
-# Función de transición δ(q, s) = (q', s', m)
-q1 a q2 b R
-q2 b q3 c L
-...
-```
-
 ## Problemas implementados
 
 1. **Lenguaje L = { aⁿbᵐ | m > n, n > 0 }**
