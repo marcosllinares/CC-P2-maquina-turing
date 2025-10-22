@@ -1,6 +1,13 @@
 # Práctica 02 - Máquina de Turing
 Práctica que implementa un simulador de Máquina de Turing determinista multicinta.
 
+
+**Características de implementación** (Opciones seleccionadas)
+- Máquina de Turing con **escritura y movimientos simultáneos**
+- Movimientos: **L** (izquierda), **R** (derecha), **S** (sin movimiento)
+- Cinta **infinita en ambas direcciones**
+- Soporte para **Máquina de Turing multicinta**
+
 ## Autor
 Trabajo realizado por Marcos Llinares Montes (alu0100972443)
 
@@ -33,14 +40,6 @@ Trabajo realizado por Marcos Llinares Montes (alu0100972443)
     ├── Transition.cpp
     └── TuringMachine.cpp
 ```
-
-## Características de implementación
-
-**Opciones seleccionadas:**
-- Máquina de Turing con **escritura y movimientos simultáneos**
-- Movimientos: **L** (izquierda), **R** (derecha), **S** (sin movimiento)
-- Cinta **infinita en ambas direcciones**
-- Soporte para **Máquina de Turing multicinta**
 
 ## Compilación
 El proyecto se compila mediante `make` (Makefile incluido). Basta ejecutar desde la raíz del proyecto:
