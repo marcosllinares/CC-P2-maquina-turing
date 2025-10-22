@@ -1,6 +1,7 @@
 # Práctica 02 - Máquina de Turing
 Práctica que implementa un simulador de Máquina de Turing determinista multicinta.
 
+Enlace al repositorio: [https://github.com/marcosllinares/CC-P2-maquina-turing](https://github.com/marcosllinares/CC-P2-maquina-turing)
 
 **Características de implementación** (Opciones seleccionadas)
 - Máquina de Turing con **escritura y movimientos simultáneos**
