@@ -72,10 +72,14 @@ Ejemplo:
 ## Problemas implementados
 
 1. **Lenguaje L = { aⁿbᵐ | m > n, n > 0 }**
-   - Archivo: `data/Definitions/problema1_MT.txt`
+   - Archivos: 
+      - Definición: `data/Definitions/problema1_MT.txt`
+      - Input: `data/Inputs/input_Problema1.txt`
 
 2. **Contador de símbolos 'a' y 'b'**
    - Convierte una cadena de a's y b's en su representación de conteo
    - Formato: `#a • #b` (en unario: n = 1ⁿ⁺¹)
-   - Archivo: `data/Definitions/problema2_MT.txt`
+   - Archivos: 
+      - Definición: `data/Definitions/problema2_MT.txt`
+      - Input: `data/Inputs/input_Problema2.txt`
 
