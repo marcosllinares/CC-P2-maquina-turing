@@ -1,7 +1,4 @@
-abbabaabb
 aa
 bb
-a
-b
-ab
-ba
+abba
+babbaabb

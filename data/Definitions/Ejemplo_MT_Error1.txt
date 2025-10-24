@@ -1,0 +1,19 @@
+# ERRORES - COMPROBACIONES
+# Ejemplo de una MT
+# MT que reconozca el lenguaje L = { a^n b^m | m > n, n > 0 }
+q0 q1 q2 q3 q4 
+a b
+a b X Y .
+q9
+.
+q3
+3
+q0 a . . q4 a X . R R S
+q4 a . . q4 a X . R R S
+q4 b . . q1 b . Y R S R
+q1 b . . q1 b . Y R S R
+q1 . . . q2 . . . S L L
+q2 . X Y q2 . X Y S L L
+q2 . . Y q3 . . Y S S L
+q3 . . Y q3 . . Y S S L
+

@@ -98,6 +98,15 @@ void TuringMachine::addTransition(const Transition& transition) {
       );
     }
   }
+
+  // Comprobación de que el símbolo blanco no está incluido en el alfabeto de entrada
+  for (char symbol : input_alphabet_.getSymbols()) {
+    if (symbol == blank_symbol_) {
+      throw std::invalid_argument(
+        "El símbolo blanco no puede pertenecer al alfabeto de entrada Σ"
+      );
+    }
+  }
   
   transitions_.push_back(transition);
 }

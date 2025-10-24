@@ -1,9 +1,4 @@
-a
-b
-ab
-aab
-abb
-aba
-bab
-aaabb
-aabbb
+abbb
+aa
+bb
+aabb
