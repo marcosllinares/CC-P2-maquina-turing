@@ -6,7 +6,11 @@
  * @param blank_symbol Símbolo blanco de la cinta
  */
 Tape::Tape(char blank_symbol) 
-  : tape_(1, blank_symbol), head_position_(0), blank_symbol_(blank_symbol) {}
+  : blank_symbol_(blank_symbol), head_position_(1) {
+  tape_.push_back(blank_symbol_);
+  tape_.push_back(blank_symbol_);
+  tape_.push_back(blank_symbol_);
+}
 
 /**
  * @brief Constructor con cadena de entrada
@@ -14,8 +18,9 @@ Tape::Tape(char blank_symbol)
  * @param blank_symbol Símbolo blanco de la cinta
  */
 Tape::Tape(const std::string& input, char blank_symbol)
-  : blank_symbol_(blank_symbol), head_position_(0) {
+  : blank_symbol_(blank_symbol), head_position_(1) {
   
+  tape_.push_back(blank_symbol_);
   if (input.empty()) {
     tape_.push_back(blank_symbol_);
   } else {
@@ -23,6 +28,7 @@ Tape::Tape(const std::string& input, char blank_symbol)
       tape_.push_back(c);
     }
   }
+  tape_.push_back(blank_symbol_);
 }
 
 /**
@@ -39,6 +45,14 @@ char Tape::read() const {
  */
 void Tape::write(char symbol) {
   tape_[head_position_] = symbol;
+  
+  if (head_position_ == 0 && tape_[0] != blank_symbol_) {
+    expandLeft();
+  }
+  if (head_position_ == static_cast<int>(tape_.size()) - 1 && 
+      tape_[head_position_] != blank_symbol_) {
+    expandRight();
+  }
 }
 
 /**
@@ -112,8 +126,9 @@ std::string Tape::getContentWithHead() const {
  */
 void Tape::reset(const std::string& input) {
   tape_.clear();
-  head_position_ = 0;
+  head_position_ = 1;
   
+  tape_.push_back(blank_symbol_);
   if (input.empty()) {
     tape_.push_back(blank_symbol_);
   } else {
@@ -121,6 +136,7 @@ void Tape::reset(const std::string& input) {
       tape_.push_back(c);
     }
   }
+  tape_.push_back(blank_symbol_);
 }
 
 /**
