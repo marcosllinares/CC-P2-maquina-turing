@@ -46,9 +46,13 @@ Explicación transición: `q0 a b q1 X Y R L`
 │   ├── Definitions/
 │   │   ├── Ejemplo_MT.txt
 │   │   └── Ejemplo2_MT.txt
+│   │   └── Problema1_MT.txt
+│   │   └── Problema2_MT.txt
 │   └── Inputs/
 │   │   ├── input1.txt
 │   │   └── input2.txt
+│   │   ├── input_Problema1.txt
+│   │   ├── input_Problema2.txt
 ├── include/
 │   ├── Alphabet.hpp
 │   ├── FileParser.hpp
