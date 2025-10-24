@@ -1,3 +1,4 @@
+# Leyenda MT de una cinta
 # Comentarios al inicio
 q0 q1 q2          # Q
 a b               # Σ
@@ -5,7 +6,26 @@ a b X Y           # Γ
 q0                # s
 ·                 # b
 q2                # F
-2                 # num_cintas (opcional)
 q0 a q1 X R       # transiciones
 q1 b q2 Y L
 ...
+
+# Leyenda MT multicinta
+# Comentarios al inicio
+q0 q1 q2          # Q
+a b               # Σ
+a b X Y           # Γ
+q0                # s
+·                 # b
+q2                # F
+2                 # num_cintas 
+q0 a b q1 X Y R L # transiciones
+q1 a . q2 Y X R L
+...
+
+Explicación transición: q0 a b q1 X Y R L
+- Estado actual: q0
+- Símbolos leídos: a (cinta 1), b (cinta 2)
+- Estado siguiente: q1
+- Símbolos escritos: X (cinta 1), Y (cinta 2)
+- Movimientos: R (cinta 1), L (cinta 2)

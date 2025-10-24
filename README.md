@@ -9,6 +9,27 @@ Enlace al repositorio: [https://github.com/marcosllinares/CC-P2-maquina-turing](
 - Cinta **infinita en ambas direcciones**
 - Soporte para **Máquina de Turing multicinta**
 
+**Explicación codificación Máquina de Turing multicinta:**
+```
+q0 q1 q2          # Q
+a b               # Σ
+a b X Y           # Γ
+q0                # s
+·                 # b
+q2                # F
+2                 # num_cintas 
+q0 a b q1 X Y R L # transiciones
+q1 a . q2 Y X R L
+...
+```
+
+Explicación transición: `q0 a b q1 X Y R L`
+- Estado actual: `q0`
+- Símbolos leídos: `a` (cinta 1), `b` (cinta 2)
+- Estado siguiente: `q1`
+- Símbolos escritos: `X` (cinta 1), `Y` (cinta 2)
+- Movimientos: `R` (cinta 1), `L` (cinta 2)
+
 ## Autor
 Trabajo realizado por Marcos Llinares Montes (alu0100972443)
 
