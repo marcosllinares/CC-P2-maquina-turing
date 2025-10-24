@@ -122,11 +122,12 @@ bool TuringMachine::run(const std::string& input, size_t max_steps) {
   step_count_ = 0;
   halted_ = false;
   
+  // Descomentar esta parte si quieres activar el modo traza
   // Imprimir configuración inicial
-  std::cout << "\n╔════════════════════════════════════════════════════╗\n";
-  std::cout << "║           TRAZA DE EJECUCIÓN - MT                  ║\n";
-  std::cout << "╚════════════════════════════════════════════════════╝\n\n";
-  printTrace();
+  // std::cout << "\n╔════════════════════════════════════════════════════╗\n";
+  // std::cout << "║           TRAZA DE EJECUCIÓN - MT                  ║\n";
+  // std::cout << "╚════════════════════════════════════════════════════╝\n\n";
+  // printTrace();
   
   while (!halted_ && step_count_ < max_steps) {
     if (!executeStep()) {
@@ -136,14 +137,14 @@ bool TuringMachine::run(const std::string& input, size_t max_steps) {
   }
   
   // Imprimir configuración final
-  if (halted_) {
-    std::cout << "\n╔════════════════════════════════════════════════════╗\n";
-    std::cout << "║           CONFIGURACIÓN FINAL                      ║\n";
-    std::cout << "╚════════════════════════════════════════════════════╝\n\n";
-    std::cout << "Estado final: " << current_state_ << "\n";
-    std::cout << "Total de pasos: " << step_count_ << "\n";
-    std::cout << "Resultado: " << (isAccepted() ? "ACEPTADA" : "RECHAZADA") << "\n\n";
-  }
+  // if (halted_) {
+  //   std::cout << "\n╔════════════════════════════════════════════════════╗\n";
+  //   std::cout << "║           CONFIGURACIÓN FINAL                      ║\n";
+  //   std::cout << "╚════════════════════════════════════════════════════╝\n\n";
+  //   std::cout << "Estado final: " << current_state_ << "\n";
+  //   std::cout << "Total de pasos: " << step_count_ << "\n";
+  //   std::cout << "Resultado: " << (isAccepted() ? "ACEPTADA" : "RECHAZADA") << "\n\n";
+  // }
   
   return halted_;
 }
@@ -323,7 +324,7 @@ bool TuringMachine::executeStep() {
   }
   
   // Imprimir traza después de aplicar la transición
-  printTrace(transition);
+  // printTrace(transition);
   
   return true;
 }
