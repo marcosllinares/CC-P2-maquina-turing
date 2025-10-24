@@ -30,7 +30,31 @@ int main(int argc, char **argv) {
     TuringMachine tm = FileParser::parseMachineDefinition(definition_file);
     std::vector<std::string> input_strings = FileParser::parseInputStrings(input_file);
 
-    // TODO: Ejecutar la MT con cada cadena de entrada
+    for (size_t i = 0; i < input_strings.size(); ++i) {
+      const std::string& input = input_strings[i];
+
+      std::cout << "---------------------------------------------------\n";
+      std::cout << "Cadena de entrada #" << (i + 1) << ": \"" << input << "\"\n";
+      std::cout << "---------------------------------------------------\n\n";
+
+      bool finished = tm.run(input);
+      
+      if (!finished) {
+        std::cout << "La máquina excedió el número máximo de pasos\n\n";
+      }
+      
+      std::cout << "Resultado: " << (tm.isAccepted() ? "ACEPTADA" : "RECHAZADA") << "\n";
+      // std::cout << "Estado final: " << tm.getCurrentState() << "\n";
+      // std::cout << "Pasos ejecutados: " << tm.getStepCount() << "\n\n";
+      
+      std::vector<std::string> tapes_content = tm.getTapesContentWithHead();
+      for (size_t j = 0; j < tapes_content.size(); ++j) {
+        std::cout << "Cinta " << (j + 1) << ": " << tapes_content[j] << "\n";
+      }
+      
+      std::cout << "\n";
+      tm.reset();
+    }
 
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
