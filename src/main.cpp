@@ -44,8 +44,8 @@ int main(int argc, char **argv) {
       }
       
       std::cout << "Resultado: " << (tm.isAccepted() ? "ACEPTADA" : "RECHAZADA") << "\n";
-      // std::cout << "Estado final: " << tm.getCurrentState() << "\n";
-      // std::cout << "Pasos ejecutados: " << tm.getStepCount() << "\n\n";
+      std::cout << "Estado final: " << tm.getCurrentState() << "\n";
+      std::cout << "Pasos ejecutados: " << tm.getStepCount() << "\n\n";
       
       std::vector<std::string> tapes_content = tm.getTapesContentWithHead();
       for (size_t j = 0; j < tapes_content.size(); ++j) {

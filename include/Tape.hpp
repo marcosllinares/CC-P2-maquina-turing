@@ -4,6 +4,12 @@
 #include <vector>
 #include <deque>
 
+/**
+ * @brief Representa la cinta de una máquina de Turing con capacidad de expansión infinita.
+ * 
+ * La cinta permite lectura, escritura y movimiento del cabezal en ambas direcciones.
+ * Se expande automáticamente cuando es necesario usando un símbolo en blanco configurable.
+ */
 class Tape {
 public:
   Tape(char blank_symbol = '.');

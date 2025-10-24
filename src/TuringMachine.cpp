@@ -106,7 +106,7 @@ void TuringMachine::addTransition(const Transition& transition) {
  * @brief Ejecuta la máquina de Turing con una cadena de entrada
  * @param input Cadena de entrada
  * @param max_steps Número máximo de pasos antes de abortar
- * @return true si la ejecución terminó (con o sin aceptación), false si se excedió max_steps
+ * @return true si la ejecución terminó (con o sin aceptación), false si se excedió max_steps o si no hay transición aplicable
  */
 bool TuringMachine::run(const std::string& input, size_t max_steps) {
   for (char c : input) {
@@ -122,11 +122,27 @@ bool TuringMachine::run(const std::string& input, size_t max_steps) {
   step_count_ = 0;
   halted_ = false;
   
+  // Imprimir configuración inicial
+  std::cout << "\n╔════════════════════════════════════════════════════╗\n";
+  std::cout << "║           TRAZA DE EJECUCIÓN - MT                  ║\n";
+  std::cout << "╚════════════════════════════════════════════════════╝\n\n";
+  printTrace();
+  
   while (!halted_ && step_count_ < max_steps) {
     if (!executeStep()) {
       halted_ = true;
     }
     step_count_++;
+  }
+  
+  // Imprimir configuración final
+  if (halted_) {
+    std::cout << "\n╔════════════════════════════════════════════════════╗\n";
+    std::cout << "║           CONFIGURACIÓN FINAL                      ║\n";
+    std::cout << "╚════════════════════════════════════════════════════╝\n\n";
+    std::cout << "Estado final: " << current_state_ << "\n";
+    std::cout << "Total de pasos: " << step_count_ << "\n";
+    std::cout << "Resultado: " << (isAccepted() ? "ACEPTADA" : "RECHAZADA") << "\n\n";
   }
   
   return halted_;
@@ -229,6 +245,31 @@ std::string TuringMachine::getResultFromFirstTape() const {
 }
 
 /**
+ * @brief Imprime la traza de ejecución paso a paso
+ * @param transition Transición que se va a aplicar (nullptr si es el estado inicial)
+ */
+void TuringMachine::printTrace(const Transition* transition) const {
+  std::cout << "────────────────────────────────────────────────────\n";
+  std::cout << "Paso: " << step_count_ << "\n";
+  std::cout << "Estado: " << current_state_ << "\n";
+  
+  // Mostrar las cintas con el cabezal
+  for (size_t i = 0; i < tapes_.size(); ++i) {
+    std::cout << "Cinta " << (i + 1) << ": " 
+              << tapes_[i].getContentWithHead() << "\n";
+  }
+  
+  // Si hay transición, mostrarla
+  if (transition != nullptr) {
+    std::cout << "\nTransición aplicada: " << transition->toString() << "\n";
+  } else {
+    std::cout << "\nConfiguración inicial\n";
+  }
+  
+  std::cout << "────────────────────────────────────────────────────\n\n";
+}
+
+/**
  * @brief Busca una transición aplicable al estado y símbolos actuales
  * @param state Estado actual
  * @param symbols Símbolos actuales en las cintas
@@ -280,6 +321,9 @@ bool TuringMachine::executeStep() {
         break;
     }
   }
+  
+  // Imprimir traza después de aplicar la transición
+  printTrace(transition);
   
   return true;
 }

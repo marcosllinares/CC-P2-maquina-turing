@@ -1,1 +1,33 @@
-a
+# Ejemplo de una MT
+# Reconoce cadenas binarias con un n�mero impar de 0
+q0 q1 q2 q3 qSa qSb qBack qAcc
+a b
+a b X Y .
+q0
+.
+qAcc
+qSa a qSa a R  
+qSa b qSb b R  
+qSa . qBack . L  
+qSb b qSb b R  
+qSb . qBack . L  
+qBack a qBack a L  
+qBack b qBack b L  
+qBack X qBack X L  
+qBack Y qBack Y L  
+qBack . q0 . R  
+q0 a q1 X R  
+q0 X q0 X R  
+q0 Y q0 Y R  
+q0 b q3 b R  
+q1 a q1 a R  
+q1 X q1 X R  
+q1 Y q1 Y R  
+q1 b q2 Y L  
+q2 a q2 a L  
+q2 X q2 X L  
+q2 b q2 b L  
+q2 Y q2 Y L  
+q2 . q0 . R  
+q3 Y q3 Y R  
+q3 b qAcc b R

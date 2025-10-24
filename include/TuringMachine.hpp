@@ -8,6 +8,9 @@
 #include "Transition.hpp"
 #include "Alphabet.hpp"
 
+/**
+ * @brief Representa una máquina de Turing multiciclo que procesa símbolos mediante cintas y transiciones.
+ */
 class TuringMachine {
 public:
   TuringMachine(const std::set<std::string>& states,
@@ -19,7 +22,7 @@ public:
                 size_t num_tapes = 1);
   
   void addTransition(const Transition& transition);
-  bool run(const std::string& input, size_t max_steps = 100);
+  bool run(const std::string& input, size_t max_steps = 10000);
   
   bool isAccepted() const;
   std::string getCurrentState() const;
@@ -30,6 +33,7 @@ public:
   void reset();
   void printConfiguration() const;
   std::string getResultFromFirstTape() const;
+  void printTrace(const Transition* transition = nullptr) const;
 
 private:
   std::set<std::string> states_;
