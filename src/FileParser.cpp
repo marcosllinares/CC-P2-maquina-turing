@@ -63,52 +63,57 @@ TuringMachine FileParser::parseMachineDefinition(const std::string& filename) {
 
     // 6. Leer conjunto F (estados finales)
     line = readNextLine(file);
-    std::vector<std::string> final_states = tokenize(line);
-    // F puede estar vacío (MT que no acepta nada)
+    std::vector<std::string> final_states_vec = tokenize(line);
+    std::set<std::string> final_states(final_states_vec.begin(), final_states_vec.end());
 
     // 7. Leer número de cintas (opcional para MT multicinta)
     line = readNextLine(file);
-    int num_tapes = 1; // Por defecto, 1 cinta
+    size_t num_tapes = 1; // Por defecto 1 cinta
     std::vector<std::string> tape_tokens = tokenize(line);
     
-    // Verificar si es un número (para multicinta) o una transición
+    // Verificar si es número de cintas o ya es una transición
     bool is_transition = false;
     if (!tape_tokens.empty()) {
-      // Intentar convertir a número
+      // Intentar convertir el primer token a un número
       try {
-        num_tapes = std::stoi(tape_tokens[0]);
-        if (num_tapes < 1) {
+        int tapes = std::stoi(tape_tokens[0]);
+        if (tapes < 1) {
           throw std::runtime_error("El número de cintas debe ser >= 1");
         }
+        num_tapes = static_cast<size_t>(tapes);
       } catch (const std::invalid_argument&) {
-        // No es un número, es la primera transición
+        // No es un número, es una transición
         is_transition = true;
         num_tapes = 1;
       }
     }
 
-    // 8. Leer transiciones δ
-    std::vector<std::string> transitions;
+    std::set<std::string> states_set(states.begin(), states.end());
+    Alphabet input_alpha(sigma_tokens);
+    Alphabet tape_alpha(gamma_tokens);
     
+    TuringMachine tm(states_set, input_alpha, tape_alpha, 
+                     initial_state, blank_symbol, final_states, num_tapes);
+
+    // 8. Leer transiciones δ
     // Si la línea anterior era una transición, procesarla primero
     if (is_transition) {
-      transitions.push_back(line);
+      std::vector<std::string> trans_tokens = tokenize(line);
+      Transition t = parseTransition(trans_tokens, num_tapes);
+      tm.addTransition(t);
     }
 
     // Leer el resto de transiciones
     while (std::getline(file, line)) {
       line = trim(line);
       if (!isCommentOrEmpty(line)) {
-        transitions.push_back(line);
+        std::vector<std::string> trans_tokens = tokenize(line);
+        Transition t = parseTransition(trans_tokens, num_tapes);
+        tm.addTransition(t);
       }
     }
 
     file.close();
-
-    // TODO: Crear y configurar la TuringMachine con los datos parseados
-    // Por ahora retornamos una instancia vacía
-    TuringMachine tm;
-    
     return tm;
 
   } catch (const std::exception& e) {
@@ -206,4 +211,59 @@ std::string FileParser::trim(const std::string& str) {
  */
 bool FileParser::isCommentOrEmpty(const std::string& line) {
   return line.empty() || line[0] == '#';
+}
+
+/**
+ * @brief Parsea una transición desde tokens
+ * @param tokens Vector de tokens de la línea de transición
+ * @param num_tapes Número de cintas de la máquina
+ * @return Transición parseada
+ * @throws std::runtime_error si el formato es inválido
+ * 
+ * Formato esperado:
+ * - 1 cinta: q0 a q1 X R (5 tokens)
+ * - 2 cintas: q0 a b q1 X Y R L (8 tokens)
+ * - n cintas: q0 s1..sn q1 w1..wn m1..mn (3n+2 tokens)
+ */
+Transition FileParser::parseTransition(const std::vector<std::string>& tokens, 
+                                       size_t num_tapes) {
+  size_t expected_tokens = 3 * num_tapes + 2;
+  
+  if (tokens.size() != expected_tokens) {
+    throw std::runtime_error(
+      "Formato de transición inválido. Esperados " + 
+      std::to_string(expected_tokens) + " tokens, encontrados " + 
+      std::to_string(tokens.size())
+    );
+  }
+  
+  std::string current_state = tokens[0];
+  
+  std::vector<char> read_symbols;
+  for (size_t i = 0; i < num_tapes; ++i) {
+    if (tokens[1 + i].empty()) {
+      throw std::runtime_error("Símbolo de lectura vacío en la transición");
+    }
+    read_symbols.push_back(tokens[1 + i][0]);
+  }
+  
+  std::string next_state = tokens[1 + num_tapes];
+  
+  std::vector<char> write_symbols;
+  for (size_t i = 0; i < num_tapes; ++i) {
+    if (tokens[2 + num_tapes + i].empty()) {
+      throw std::runtime_error("Símbolo de escritura vacío en la transición");
+    }
+    write_symbols.push_back(tokens[2 + num_tapes + i][0]);
+  }
+  
+  std::vector<Movement> movements;
+  for (size_t i = 0; i < num_tapes; ++i) {
+    if (tokens[2 + 2 * num_tapes + i].empty()) {
+      throw std::runtime_error("Movimiento vacío en la transición");
+    }
+    movements.push_back(Transition::charToMovement(tokens[2 + 2 * num_tapes + i][0]));
+  }
+  
+  return Transition(current_state, read_symbols, next_state, write_symbols, movements);
 }
