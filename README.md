@@ -3,6 +3,8 @@ Práctica que implementa un simulador de Máquina de Turing determinista multici
 
 Enlace al repositorio: [https://github.com/marcosllinares/CC-P2-maquina-turing](https://github.com/marcosllinares/CC-P2-maquina-turing)
 
+Autor: Trabajo realizado por Marcos Llinares Montes (alu0100972443)
+
 **Características de implementación** (Opciones seleccionadas)
 - Máquina de Turing con **escritura y movimientos simultáneos**
 - Movimientos: **L** (izquierda), **R** (derecha), **S** (sin movimiento)
@@ -29,9 +31,6 @@ Explicación transición: `q0 a b q1 X Y R L`
 - Estado siguiente: `q1`
 - Símbolos escritos: `X` (cinta 1), `Y` (cinta 2)
 - Movimientos: `R` (cinta 1), `L` (cinta 2)
-
-## Autor
-Trabajo realizado por Marcos Llinares Montes (alu0100972443)
 
 ## Estructura del proyecto
 - `include/` : cabeceras (.hpp)
