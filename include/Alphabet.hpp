@@ -4,6 +4,11 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief Clase que representa un alfabeto de símbolos para una máquina de Turing.
+ * 
+ * Gestiona un conjunto de símbolos únicos representados como caracteres.
+ */
 class Alphabet {
 public:
   Alphabet();

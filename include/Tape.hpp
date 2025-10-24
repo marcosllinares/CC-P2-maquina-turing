@@ -22,8 +22,8 @@ public:
   
 private:
   std::deque<char> tape_;
-  int head_position_;
   char blank_symbol_;
+  int head_position_;
   
   void expandLeft();
   void expandRight();
